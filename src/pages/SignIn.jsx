@@ -6,6 +6,7 @@ import { signinUser } from "../store/authSlice";
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,13 +41,28 @@ function SignIn() {
         />
 
         <label className="block text-sm text-slate-300 mb-1">Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="w-full mb-4 px-3 py-2 rounded bg-slate-700 text-white outline-none"
-        />
+        <div className="relative mb-1">
+          <input
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full px-3 py-2 pr-16 rounded bg-slate-700 text-white outline-none"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"
+          >
+            {showPassword ? "Hide" : "Show"}
+          </button>
+        </div>
+
+        <div className="text-right mb-4">
+          <Link to="/forgot-password" className="text-xs text-indigo-400">
+            Forgot password?
+          </Link>
+        </div>
 
         {error && <p className="text-red-400 text-sm mb-3">{error}</p>}
 
